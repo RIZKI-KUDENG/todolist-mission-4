@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todolist - Mission 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile">
+                <div class="profile-img">RA</div>
+              <div class="name-role">
+                  <h3 class="profile-name">Rizki Arya</h3>
+                  <p>Fullstack Developer</p>
+              </div>
+            </div>
+            <div class="time-display">
+            </div>
+        </div>
+        <div class="input-area">
+            <div class="form-input">
+                <label for="taskInput">Tambah tugas:</label>
+                <textarea name="" id="task-input" placeholder="Tambahkan tugas..."></textarea>
+            </div>
+            <div class="form-input">
+                <label for="">Pilih level prioritas</label>
+                <div class="priority-section">
+                    <button class="priority-btn low" data-priority="low">Low</button>
+                    <button class="priority-btn medium" data-priority="medium">Medium</button>
+                    <button class="priority-btn high" data-priority="high">High</button>
+                </div>
+            </div>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn">To Do</button>
+            <button class="tab-btn">Done</button>
+        </div>
+        <div class="list-task">
+            <div class="todo-container">
+                <div class="todo-list"></div>
+                <button style="display: none;">Hapus semua To do</button>
+            </div>
+            <div class="done-container">
+                <div class="done-list"></div>
+                <button style="display: none;">Hapus semua Done</button>
+            </div>
+        </div>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>

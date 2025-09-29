@@ -1,0 +1,85 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.container{
+    width: 50%;
+    margin: auto;
+    border: 1px solid blue;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.profile{
+    display: flex;
+    align-items: center;
+}
+.profile-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #1f87e2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-weight: bold;
+    color: snow;
+}
+.input-area{
+    margin-top: 1rem;
+    padding: 1rem;
+}
+.form-input{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    gap: 13px;
+}
+#task-input{
+    min-height: 90px;
+}
+.priority-section{
+    display: flex;
+    gap: 10px;
+}
+.priority-section button{
+    width: 100%;
+    height: 3em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.priority-btn.low.active{
+    background-color: #1f87e2;
+    color: snow;
+}
+.priority-btn.medium.active{
+    background-color: #e2e21f;
+    color: snow;
+}
+.priority-btn.high.active{
+    background-color: #e21f1f;
+    color: snow;
+
+}
+.tabs{
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+.tabs button{
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    height: 3em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

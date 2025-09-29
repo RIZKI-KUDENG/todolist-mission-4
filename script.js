@@ -1,3 +1,8 @@
+let tasks = {
+  todo: [],
+  done: [],
+};
+
 function updateTime() {
   const now = new Date();
   const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
@@ -38,6 +43,26 @@ function initializePriorityBtn() {
 }
 initializePriorityBtn();
 
-function addTask(){
-    
+function addTask() {
+  const taskInput = document.getElementById("task-input");
+  const taskText = taskInput.value.trim();
+  if (taskText === "") {
+    alert("Tugas tidak boleh kosong");
+    return;
+  }
+  const priorityBtn = document.querySelector(".priority-btn.active");
+  const priority = priorityBtn ? priorityBtn.dataset.priority : "medium";
+  const task = {
+    id: Date.now(),
+    text: taskText,
+    priority: priority,
+    date: new Date().toLocaleString("id-ID"),
+    completed: false,
+  };
+  tasks.todo.push(task);
+  taskInput.value = "";
+  taskInput.style.borderColor = "#e41212ff";
+  setTimeout(() => {
+    taskInput.style.borderColor = "#1e6128ff";
+  }, 1000);
 }

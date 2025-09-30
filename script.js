@@ -5,7 +5,7 @@ let tasks = {
 
 function updateTime() {
   const now = new Date();
-  const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+  const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   const months = [
     "Januari",
     "Februari",
@@ -40,6 +40,7 @@ function initializePriorityBtn() {
       btn.classList.add("active");
     });
   });
+  document.querySelector(".priority-btn.medium").classList.add("active");
 }
 initializePriorityBtn();
 
@@ -66,3 +67,25 @@ function addTask() {
     taskInput.style.borderColor = "#1e6128ff";
   }, 1000);
 }
+
+function toggleTask(id) {
+  const todoIndex = tasks.todo.findIndex((t) => t.id === id);
+  const doneIndex = tasks.done.findIndex((t) => t.id === id);
+
+  if (todoIndex !== -1) {
+    const task = tasks.todo.splice(todoIndex, 1)[0];
+    task.completed = true;
+    tasks.done.push(task);
+  } else if (doneIndex !== -1) {
+    const task = tasks.done.splice(doneIndex, 1)[0];
+    task.completed = false;
+    tasks.todo.push(task);
+  }
+}
+
+function deleteTask(id, type){
+  if(confirm(`apakah kamu yakin ingin menghapus tugas ini?`)){
+    tasks[type] = tasks[type].filter(t => t.id !== id)
+  }
+}
+

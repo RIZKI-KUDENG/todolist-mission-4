@@ -41,11 +41,11 @@
         <div class="task-container">
             <div id="todoTab" class="list-tasks active">
                 <div id="todoList"></div>
-                <button class="delete-all-btn" id="deleteTodoBtn" style="display: none;">Hapus semua To do</button>
+                <button class="delete-all-btn" id="deleteTodoBtn" onclick="deleteAllTasks('todo')" style="display: none;">Hapus semua To do</button>
             </div>
             <div id="doneTab" class="list-tasks">
                 <div id="doneList"></div>
-                <button class="delete-all-btn" id="deleteDoneBtn" style="display: none;">Hapus semua Done</button>
+                <button class="delete-all-btn" id="deleteDoneBtn" onclick="deleteAllTasks('done')" style="display: none;">Hapus semua Done</button>
             </div>
         </div>
     </div>

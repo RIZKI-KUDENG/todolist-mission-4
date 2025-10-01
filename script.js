@@ -1,23 +1,30 @@
 let tasks = {
   todo: [
-    {
-      id: Date.now(),
-      text: "Belajar HTML",
-      priority: "medium",
-      date: new Date().toLocaleString("id-ID"),
-      completed: false,
-    },
+    // {
+    //   id: Date.now(),
+    //   text: "Belajar HTML",
+    //   priority: "medium",
+    //   date: new Date().toLocaleDateString("id-ID"),
+    //   completed: false,
+    // },
   ],
   done: [
-    {
-      id: Date.now(),
-      text: "Belajar CSS",
-      priority: "medium",
-      date: new Date().toLocaleString("id-ID"),
-      completed: true,
-    },
+    // {
+    //   id: Date.now(),
+    //   text: "Belajar CSS",
+    //   priority: "medium",
+    //   date: new Date().toLocaleDateString("id-ID"),
+    //   completed: true,
+    // },
   ],
 };
+document.addEventListener("DOMContentLoaded", function () {
+  loadTasks();
+  updateTime();
+  setInterval(updateTime, 60000);
+  initializePriorityBtn();
+  renderTasks();
+});
 
 function updateTime() {
   const now = new Date();
@@ -73,7 +80,7 @@ function addTask() {
     id: Date.now(),
     text: taskText,
     priority: priority,
-    date: new Date().toLocaleString("id-ID"),
+    date: new Date().toLocaleDateString("id-ID"),
     completed: false,
   };
   tasks.todo.push(task);
@@ -82,6 +89,8 @@ function addTask() {
   setTimeout(() => {
     taskInput.style.borderColor = "#1e6128ff";
   }, 1000);
+  saveTasks();
+  renderTasks();
 }
 
 function toggleTask(id) {
@@ -97,15 +106,19 @@ function toggleTask(id) {
     task.completed = false;
     tasks.todo.push(task);
   }
+  saveTasks();
+  renderTasks();
 }
 
 function deleteTask(id, type) {
   if (confirm(`apakah kamu yakin ingin menghapus tugas ini?`)) {
     tasks[type] = tasks[type].filter((t) => t.id !== id);
   }
+  saveTasks();
+  renderTasks();
 }
 
-function deleteAllTask(type) {
+function deleteAllTasks(type) {
   if (
     confirm(
       `apakah kamu yakin ingin menghapus semua tugas di ${
@@ -115,6 +128,8 @@ function deleteAllTask(type) {
   ) {
     tasks[type] = [];
   }
+  saveTasks();
+  renderTasks();
 }
 
 function switchTabs(tab) {
@@ -153,14 +168,14 @@ function renderTodoTasks() {
     todoList.innerHTML = tasks.todo
       .map(
         (task) => `
-    <div class"task-item">
-    <input type="checkbox" class="task-checkbox" onchange="toggleTask(${
+    <div class="task-item">
+    <input type="checkbox" class="task-checkbox" onchange= "toggleTask(${
       task.id
-    }) />
+    })" />
     <div class="task-content">
     <div class="task-text">${task.text}</div>
     <div>
-    <span class"task-priority priority-${
+    <span class="task-priority priority-${
       task.priority
     }">${task.priority.toUpperCase()}</span>
     <span class="task-date">${task.date}</span>
@@ -212,3 +227,13 @@ function updateCounts() {
   document.getElementById("doneCount").textContent = tasks.done.length;
 }
 renderTasks();
+
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+function loadTasks() {
+  const saved = localStorage.getItem("tasks");
+  if (saved) {
+    tasks = JSON.parse(saved);
+  }
+}

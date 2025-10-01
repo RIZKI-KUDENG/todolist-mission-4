@@ -35,17 +35,17 @@
             <button class="submit-btn" onclick="addTask()">Tambah Tugas</button>
         </div>
         <div class="tabs">
-            <button class="tab-btn">To Do</button>
-            <button class="tab-btn">Done</button>
+            <button class="tab-btn active" onclick="switchTabs('todo')">To Do (<span id="todoCount">0</span>)</button>
+            <button class="tab-btn"onclick="switchTabs('done')">Done (<span id="doneCount">0</span>)</button>
         </div>
-        <div class="list-task">
-            <div class="todo-container">
-                <div class="todo-list"></div>
-                <button style="display: none;">Hapus semua To do</button>
+        <div class="task-container">
+            <div id="todoTab" class="list-tasks active">
+                <div id="todoList"></div>
+                <button class="delete-all-btn" id="deleteTodoBtn" style="display: none;">Hapus semua To do</button>
             </div>
-            <div class="done-container">
-                <div class="done-list"></div>
-                <button style="display: none;">Hapus semua Done</button>
+            <div id="doneTab" class="list-tasks">
+                <div id="doneList"></div>
+                <button class="delete-all-btn" id="deleteDoneBtn" style="display: none;">Hapus semua Done</button>
             </div>
         </div>
     </div>

@@ -4,11 +4,17 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+body{
+    background-color: #18242e;
+}
 
 .container {
-    width: 50%;
-    margin: auto;
-    border: 1px solid blue;
+    width: 35%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    overflow: hidden;
 }
 
 .header {
@@ -83,7 +89,8 @@
     background-color: #e21f1f;
     border-color: #e21f1f;
 }
-.submit-btn{
+
+.submit-btn {
     margin-top: 1rem;
     font-size: 1rem;
     font-weight: bold;
@@ -99,8 +106,9 @@
     gap: 10px;
     margin-top: 1rem;
 }
-.tab-btn.active{
-    background-color: aqua;
+
+.tab-btn.active {
+    background-color: rgba(37, 38, 38, 0.354);
 }
 
 .tabs button {
@@ -113,17 +121,133 @@
     cursor: pointer;
 }
 
-.list-tasks{
+.list-tasks {
     display: none;
 }
 
-.list-tasks.active{
+.list-tasks.active {
     display: block;
 }
-.no-task{
+
+.no-task {
     text-align: center;
     padding: 1rem;
 }
-.no-task h1{
+
+.no-task h1 {
     margin-bottom: 1rem;
+}
+.task-container{
+    margin-top: 2rem;
+    height: 300px;
+    overflow-y: auto;
+}
+.task-item {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s;
+}
+.task-checkbox{
+    flex-shrink: 0;
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+}
+.task-content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 5px;
+}
+.task-priority{
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.priority-low{
+    background-color: #1f87e2;
+    color: snow;
+}
+.priority-medium{
+    background-color: #e2e21f;
+    color: snow;
+}
+.priority-high{
+    background-color: #e21f1f;
+    color: snow;
+}
+.task-date{
+    font-size: 12px;
+    color: #6c757d;
+}
+.task-item.done-task .task-text{
+    text-decoration: line-through;
+}
+.delete-task-btn{
+    border: none;
+    background-color: #e21f1f;
+    color: snow;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.delete-all-btn{
+width: 100%;
+height: 3rem;
+background-color: #e21f1f;
+color: snow;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+}
+
+/* responsive */
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 85%; 
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .container {
+        width: 95%; 
+        border: none; 
+    }
+
+    body, html {
+        font-size: 15px;
+    }
+
+    .profile-info h1 {
+        font-size: 1.4rem;
+    }
+    
+    .profile-info p {
+        font-size: 0.9rem;
+    }
+    .priority-section, .tabs {
+        flex-wrap: wrap;
+    }
+    .task-item {
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 10px;
+    }
+    
+    .task-content {
+        width: 100%; 
+    }
+
+    .delete-task-btn {
+        align-self: flex-end; 
+        margin-top: 5px;
+    }
 }

@@ -1,23 +1,9 @@
+//object of array kosong digunakan sebagai pembungkus
 let tasks = {
-  todo: [
-    // {
-    //   id: Date.now(),
-    //   text: "Belajar HTML",
-    //   priority: "medium",
-    //   date: new Date().toLocaleDateString("id-ID"),
-    //   completed: false,
-    // },
-  ],
-  done: [
-    // {
-    //   id: Date.now(),
-    //   text: "Belajar CSS",
-    //   priority: "medium",
-    //   date: new Date().toLocaleDateString("id-ID"),
-    //   completed: true,
-    // },
-  ],
+  todo: [],
+  done: [],
 };
+//inisialisasi waktu halaman di buka
 document.addEventListener("DOMContentLoaded", function () {
   loadTasks();
   updateTime();
@@ -25,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initializePriorityBtn();
   renderTasks();
 });
-
+//tampilan waktu di header
 function updateTime() {
   const now = new Date();
   const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
@@ -53,38 +39,38 @@ function updateTime() {
         <p>${date} ${month} ${year}</p>
     `;
 }
-updateTime();
-
+//inilialisasi tombol prioritas
 function initializePriorityBtn() {
   const priorityBtns = document.querySelectorAll(".priority-btn");
-  priorityBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      priorityBtns.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
+  priorityBtns.forEach((btn) => { //untuk setiap tombol
+    btn.addEventListener("click", () => { //ketika di klik
+      priorityBtns.forEach((b) => b.classList.remove("active")); //untuk hilangkan class active
+      btn.classList.add("active"); //lalu tambahkan class active
     });
   });
+
+  //default tombol prioritas
   document.querySelector(".priority-btn.medium").classList.add("active");
 }
-initializePriorityBtn();
-
+//menambahkan tugas
 function addTask() {
-  const taskInput = document.getElementById("task-input");
+  const taskInput = document.getElementById("task-input"); //panggil element tugas
   const taskText = taskInput.value.trim();
-  if (taskText === "") {
+  if (taskText === "") {                      //jika tugas kosong
     alert("Tugas tidak boleh kosong");
     return;
   }
-  const priorityBtn = document.querySelector(".priority-btn.active");
-  const priority = priorityBtn ? priorityBtn.dataset.priority : "medium";
-  const task = {
+  const priorityBtn = document.querySelector(".priority-btn.active"); //mecari tombol prioritas
+  const priority = priorityBtn ? priorityBtn.dataset.priority : "medium"; //jika tidak maka medium sebagai default
+  const task = {                                                  // bungkus tugas kedalam object
     id: Date.now(),
     text: taskText,
     priority: priority,
     date: new Date().toLocaleDateString("id-ID"),
     completed: false,
   };
-  tasks.todo.push(task);
-  taskInput.value = "";
+  tasks.todo.push(task); //lalu masukan kedalam object of array yang tadi dibuat
+  taskInput.value = ""; // kosongkan text area
   taskInput.style.borderColor = "#e41212ff";
   setTimeout(() => {
     taskInput.style.borderColor = "#1e6128ff";
@@ -92,15 +78,17 @@ function addTask() {
   saveTasks();
   renderTasks();
 }
-
+//fungsi checkbox
 function toggleTask(id) {
-  const todoIndex = tasks.todo.findIndex((t) => t.id === id);
-  const doneIndex = tasks.done.findIndex((t) => t.id === id);
+  // menerima sebuah id
+  const todoIndex = tasks.todo.findIndex((t) => t.id === id); //method yang mengembalikan posisi[indexx] dalam array
+  const doneIndex = tasks.done.findIndex((t) => t.id === id); //dimana ini akan mencari id
 
   if (todoIndex !== -1) {
-    const task = tasks.todo.splice(todoIndex, 1)[0];
-    task.completed = true;
-    tasks.done.push(task);
+    //method findIndex() mengembalikan -1 jika id tidak ditemukan
+    const task = tasks.todo.splice(todoIndex, 1)[0]; //mulai dari toodoIndex hapus 1 dan masukan ke variable task
+    task.completed = true; //ubah status menjadi true
+    tasks.done.push(task); //push kedalam done
   } else if (doneIndex !== -1) {
     const task = tasks.done.splice(doneIndex, 1)[0];
     task.completed = false;
@@ -110,37 +98,37 @@ function toggleTask(id) {
   renderTasks();
 }
 
-function deleteTask(id, type) {
-  if (confirm(`apakah kamu yakin ingin menghapus tugas ini?`)) {
-    tasks[type] = tasks[type].filter((t) => t.id !== id);
-  }
+function deleteTask(id, type) {//menerima id dan type
+  if (confirm(`apakah kamu yakin ingin menghapus tugas ini?`)) { //konfirmasi
+    tasks[type] = tasks[type].filter((t) => t.id !== id); //untuk setiap tugas yang id nya tidak sama dengan yang kita klik
+  } //maka tugas tersebut berhasil menjadi array baru
   saveTasks();
   renderTasks();
 }
 
-function deleteAllTasks(type) {
-  if (
+function deleteAllTasks(type) {//menerima type
+  if (                            //konfirmasi
     confirm(
       `apakah kamu yakin ingin menghapus semua tugas di ${
         type === "todo" ? "To Do" : "Done"
       }?`
     )
   ) {
-    tasks[type] = [];
+    tasks[type] = []; //jika yakin maka array nya menjadi array kosong
   }
   saveTasks();
   renderTasks();
 }
 
-function switchTabs(tab) {
-  let tabBtn = document.querySelectorAll(".tab-btn");
-  tabBtn.forEach((btn) => btn.classList.remove("active"));
+function switchTabs(tab) {//menerima tab
+  let tabBtn = document.querySelectorAll(".tab-btn"); //mencari semua element yangg classnya tab-btn
+  tabBtn.forEach((btn) => btn.classList.remove("active")); //hilangkan semua class active
 
-  event.target.classList.add("active");
-  document.querySelectorAll(".list-tasks").forEach((l) => {
-    l.classList.remove("active");
+  event.target.classList.add("active"); //setelah semua di hapus maka jika ada yang di klik maka tambahkan class active
+  document.querySelectorAll(".list-tasks").forEach((l) => {   //mencari semua element yang classnya list-tasks
+    l.classList.remove("active"); //lalu hilangkan class active
   });
-  if (tab === "todo") {
+  if (tab === "todo") {//jika tab nya todo maka masukan class active
     document.getElementById("todoTab").classList.add("active");
   } else {
     document.getElementById("doneTab").classList.add("active");
@@ -152,22 +140,21 @@ function renderTasks() {
   renderDoneTasks();
   updateCounts();
 }
-
+//menampilkan list todo
 function renderTodoTasks() {
   const todoList = document.getElementById("todoList");
   const deleteTodoBtn = document.getElementById("deleteTodoBtn");
-  console.log(todoList);
 
-  if (tasks.todo.length === 0) {
+  if (tasks.todo.length === 0) {//jika array todo kosong maka tampilkan ini
     todoList.innerHTML = `<div class="no-task">
     <h1>Belum ada tugas</h1>
     <p>Silahkan menambahkan tugas baru</p>
     </div>`;
     deleteTodoBtn.style.display = "none";
-  } else {
+  } else { //jika array todo tidak kosong
     todoList.innerHTML = tasks.todo
-      .map(
-        (task) => `
+      .map(                               //untuk setiap task maka akan dibuat html seperti ini
+        (task) => ` 
     <div class="task-item">
     <input type="checkbox" class="task-checkbox" onchange= "toggleTask(${
       task.id
@@ -181,10 +168,12 @@ function renderTodoTasks() {
     <span class="task-date">${task.date}</span>
     </div>
     </div>
-    <button onclick="deleteTask(${task.id}, 'todo')">Hapus</button>
+    <button class="delete-task-btn" onclick="deleteTask(${
+      task.id
+    }, 'todo')">Hapus</button>
     </div>`
       )
-      .join("");
+      .join(""); //method ini akan menggabungkan tanpa pemisah
     deleteTodoBtn.style.display = "block";
   }
 }
@@ -207,30 +196,34 @@ function renderDoneTasks() {
         task.id
       })" />
       <div class='task-content'>
-      <div class='task-text>${task.text}</div>
+      <div class='task-text'>${task.text}</div>
       <div>
       <span class='task-priority priority-${
         task.priority
-      }>${task.priority.toUpperCase()}</span>
+      }'>${task.priority.toUpperCase()}</span>
       <span>${task.date}</span>
       </div>
       </div>
-      <button onclick="deleteTask(${task.id}, 'done')" >Hapus</button>
+      <button class="delete-task-btn" onclick="deleteTask(${
+        task.id
+      }, 'done')" >Hapus</button>
       </div>`
       )
       .join("");
     deleteDoneBtn.style.display = "block";
   }
 }
+//fungsi penghitung ada berapa banya tugas
 function updateCounts() {
   document.getElementById("todoCount").textContent = tasks.todo.length;
   document.getElementById("doneCount").textContent = tasks.done.length;
 }
 renderTasks();
-
+//push tasks kedalam local storage
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+//mengambil tasks dari local storage
 function loadTasks() {
   const saved = localStorage.getItem("tasks");
   if (saved) {
